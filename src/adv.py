@@ -49,7 +49,7 @@ while True:
     print(hero.current_room)
     if direction == "n":
         if room[hero.current_room].n_to is not None:
-            hero.current_room = room[hero.current_room].name
+           hero.current_room = room[hero.current_room].name
     print(hero.current_room)
     # for place in room:
     #     foyer = Room("foyer", "Dim light filters in from the south,Dusty passages run north and east.")
