@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 from item import Item
+from monster import Monster
 import textwrap
 
 # Declare all the rooms
@@ -82,12 +83,29 @@ while not done:
         player.current_room = movePlayer(s, player.current_room)
         if s == "n":
             print(Item("armor", "it looks like its made of steel"))
+            answer1 = input("Do you want to pick it up, yes or no?  ").strip().lower()
+            if answer1 == "yes":
+                print("you placed the armor in your inventory")
+                player.inventory.append(
+                    Item("armor", "armor that I took in the north room")
+                )
+            if answer1 == "no":
+                print("you decided you not need it")
         if s == "s":
             print(Item("monster", "waiting in ambush to attack you"))
+            answer2 = input("Fight it? yes or no  ").strip().lower()
+            if answer2 == "yes":
+                print("you killed the " + str(Monster("Balrog")))
+            if answer2 == "no":
+                print("you ran away from the beast")
+
         if s == "e":
             print(Item("hole", "a giant hole in the ground with no end"))
+            input("Jump in it or not?  ").strip().lower()
         if s == "w":
             print(Item("passage", "judging by the breeze it must be an way out"))
+            input("Do you want to go there?  ").strip().lower()
+
     elif s == "i":
         if len(player.inventory) == 0:
             print("you are not carrying anything")
