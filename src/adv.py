@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 import textwrap
 
 # Declare all the rooms
@@ -43,23 +44,73 @@ room["treasure"].s_to = room["narrow"]
 
 # Main
 
-hero = Player("Conan", "outside")
-while True:
-    direction = input("Where do you want to go? (n,s,e,w)  ")
-    print(hero.current_room)
-    if direction == "n":
-        if room[hero.current_room].n_to is not None:
-           hero.current_room = room[hero.current_room].name
-    print(hero.current_room)
-    # for place in room:
-    #     foyer = Room("foyer", "Dim light filters in from the south,Dusty passages run north and east.")
-    #     place = foyer
-    #     print(place)
 
-    # wrapper = textwrap.TextWrapper(width=50)
-    # word_list = wrapper.wrap(text=direction)
-    # for element in word_list:
-    #     print(element)
+# helper function
+
+
+def movePlayer(dir, current_room):
+    attrib = dir + "_to"
+
+    # see if room has destination attrib
+    if hasattr(current_room, attrib):
+        return getattr(current_room, attrib)
+
+    # otherwise let them know that they can not move in  that direction
+    print("you cannot go that way")
+
+    return current_room
+
+
+player = Player("Beowulf", room["outside"])
+player.inventory.append(Item("Knife", "a russty knife"))
+player.inventory.append(Item("Bracer", "a machine"))
+player.inventory.append(Item("Dog", "a fanged dog"))
+
+
+done = False
+
+while not done:
+    print(player.current_room.name)
+    print(player.current_room.description)
+
+    s = input("Comand> ").strip().lower()
+
+    if s == "q":
+        print("Goodbye")
+        done = True
+    elif s in ["n", "s", "e", "w"]:
+        player.current_room = movePlayer(s, player.current_room)
+        print(Item("armor", "made of steel"))
+
+    elif s == "i":
+        if len(player.inventory) == 0:
+            print("you are not carrying anything")
+        else:
+            print("you are carrying: \n")
+            for i in player.inventory:
+                print(f"\t{i}")
+            print()
+    else:
+        print(f"the command {s} is not valid!")
+
+
+# hero = Player("Conan", "outside")
+# while True:
+#     direction = input("Where do you want to go? (n,s,e,w)  ")
+#     print(hero.current_room)
+#     if direction == "n":
+#         if room[hero.current_room].n_to is not None:
+#            hero.current_room = room[hero.current_room].name
+#     print(hero.current_room)
+# for place in room:
+#     foyer = Room("foyer", "Dim light filters in from the south,Dusty passages run north and east.")
+#     place = foyer
+#     print(place)
+
+# wrapper = textwrap.TextWrapper(width=50)
+# word_list = wrapper.wrap(text=direction)
+# for element in word_list:
+#     print(element)
 
 # Make a new player object that is currently in the 'outside' room.
 
