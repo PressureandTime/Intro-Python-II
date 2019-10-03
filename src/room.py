@@ -6,7 +6,7 @@ class Room:
     def __init__(self, name, description):
         self.name = name
         self.description = description
-        self.items = Item()
+        self.items = Item("frog", "a big frog")
         # self.n_to = n_to
         # self.s_to = s_to
         # self.e_to = e_to

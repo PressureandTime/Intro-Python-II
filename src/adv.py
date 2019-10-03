@@ -80,8 +80,14 @@ while not done:
         done = True
     elif s in ["n", "s", "e", "w"]:
         player.current_room = movePlayer(s, player.current_room)
-        print(Item("armor", "made of steel"))
-
+        if s == "n":
+            print(Item("armor", "it looks like its made of steel"))
+        if s == "s":
+            print(Item("monster", "waiting in ambush to attack you"))
+        if s == "e":
+            print(Item("hole", "a giant hole in the ground with no end"))
+        if s == "w":
+            print(Item("passage", "judging by the breeze it must be an way out"))
     elif s == "i":
         if len(player.inventory) == 0:
             print("you are not carrying anything")
