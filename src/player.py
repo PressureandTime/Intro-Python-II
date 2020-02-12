@@ -28,6 +28,8 @@ class Player:
         else:
             print(f"your inventory is empty")
 
+    
+
 
 conan = Player('field')
 
@@ -41,4 +43,3 @@ conan.remove_the_item('shield')
 print(vars(conan))
 
 conan.print_all_items()
-
