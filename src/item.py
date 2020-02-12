@@ -3,10 +3,8 @@ class Item:
         self.name = name
         self.description = description
 
-    def take_the_item(self):
+    def grab_the_item(self):
         print(f"you have picked up {self.name}")
 
-    def drop_the_item(self):
+    def throw_the_item_away(self):
         print(f"You dropped the {self.name}")
-
-    
