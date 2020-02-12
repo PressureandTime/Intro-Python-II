@@ -1,6 +1,7 @@
 # Write a class to hold player information, e.g. what room they are in
 # currently.
 
+
 class Player:
     def __init__(self, room):
         self.room = room
@@ -16,7 +17,16 @@ class Player:
         for thing in self.inventory:
             if item == thing:
                 self.inventory.remove(item)
-        print('item was not found')
+                print(f"{item} has been removed")
+            elif item not in self.inventory:
+                print('item was not found')
+
+    def print_all_items(self):
+        if len(self.inventory) > 0:
+            all_items = [item for item in self.inventory]
+            print(f"inventory contents: {all_items}")
+        else:
+            print(f"your inventory is empty")
 
 
 conan = Player('field')
@@ -29,3 +39,6 @@ print(vars(conan))
 
 conan.remove_the_item('shield')
 print(vars(conan))
+
+conan.print_all_items()
+
