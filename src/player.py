@@ -3,12 +3,13 @@
 
 
 class Player:
-    def __init__(self, room):
+    def __init__(self, name, room):
+        self.name = name
         self.room = room
         self.inventory = []
 
-    def way_to_go(self, d):
-        print(d)
+    def set_the_room(self, current_room):
+        self.room = current_room
 
     def add_the_item(self, item):
         self.inventory.append(item)
@@ -27,19 +28,3 @@ class Player:
             print(f"inventory contents: {all_items}")
         else:
             print(f"your inventory is empty")
-
-    
-
-
-conan = Player('field')
-
-conan.add_the_item('sword')
-conan.add_the_item('shield')
-conan.add_the_item('axe')
-
-print(vars(conan))
-
-conan.remove_the_item('shield')
-print(vars(conan))
-
-conan.print_all_items()

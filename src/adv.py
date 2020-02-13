@@ -5,25 +5,31 @@ from item import Item
 # Declare all the rooms
 
 room = {
-    'outside':Room("Outside Cave Entrance", "North of you, the cave mount beckons",
-         "foyer", None, None, None, []),
-
-    'foyer': Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", "overlook", "outside", "narrow", None, []),
-
-    'overlook':Room("Grand Overlook", """A steep cliff appears before you, falling
+    'outside':
+    Room("Outside Cave Entrance", "North of you, the cave mount beckons"),
+    'foyer':
+    Room(
+        "Foyer", """Dim light filters in from the south. Dusty
+passages run north and east."""),
+    'overlook':
+    Room(
+        "Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", None, "foyer", None,
-        None, []),
-
-    'narrow':Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", "gold", None, None, "foyer",
-        []),
-
-    'treasure':Room("Treasure Chamber", """You've found the long-lost treasure
+the distance, but there is no way across the chasm."""),
+    'narrow':
+    Room(
+        "Narrow Passage", """The narrow passage bends here from west
+to north. The smell of gold permeates the air."""),
+    'treasure':
+    Room(
+        "Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", None, "narrow", None,
-        None, []),
+earlier adventurers."""),
+    'empty':
+    Room(
+        "Empty Room",
+        """You walked into an room that seems empty at first glance. To the east is a passage."""
+    )
 }
 
 # Link rooms together
@@ -42,30 +48,49 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player('outside')
+player = Player('Conan', room['outside'])
 
-rabbit_foot = Item("amulet", "this is the amulet that gives luck")
+# rabbit_foot = Item("amulet", "this is the amulet that gives luck")
+
+# room[player.room].items.append(rabbit_foot)
+
+item = {
+    'axe': Item('axe', 'huge axe'),
+    'sword': Item('Sword', 'sharp sword'),
+    'shield': Item('Shield', 'bronze shield'),
+    'hammer': Item('Hammer', 'heavy hammer')
+}
+
+end_of_game = False
+options = ['n', 'e', 's', 'w']
+waypoints = {'n': 'North', 'e': 'East', 's': 'South', 'w': 'West'}
 
 
-room[player.room].items.append(rabbit_foot)
+def fetch_the_command_from_player():
+    return input("Command: ").lower().split(" ")
 
 
+def move_player(room, command):
+    cmd_to = command + '_to'
+    if hasattr(room, cmd_to):
+        print(f'You move {waypoints[command]}')
+        if player.room.name == 'Treasure Chamber':
+            global game_over
+            game_over = True
+        print('')
+    else:
+        print('there is nothing here')
 
 
-while True:
-    current_room = room[player.room]
-    print(current_room.name)
-    print(current_room.description)
-    room[player.room].print_all_items()
+while not end_of_game:
+    command = fetch_the_command_from_player()
+    # command verb, first input
+    cmd_v = command[0]
 
-    user_input = input("Enter command: ")
-
-    inputs = user_input.split(" ")
-    if inputs[0] == 'take':
-        taken_item = room[player.room].remove_the_item(inputs[1])
-        player.add_the_item(taken_item)
-        taken_item.grab_the_item()
-        pass
+    if cmd_v == 'q':
+        game_over = True
+    elif cmd_v in options:
+        move_player(player.room, cmd_v)
 
 
 
