@@ -12,6 +12,13 @@ class Room:
         # self.e_to = e_to
         self.items = items
 
+    def check(self):
+        print(f'Items in this room : {self.items}')
+
+    def where_am_i(self):
+            print(f'You are at {self.name}')
+            print(self.description)
+
     def print_all_items(self):
         if len(self.items) > 0:
             all_items = [item.name for item in self.items]

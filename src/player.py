@@ -13,6 +13,7 @@ class Player:
 
     def add_the_item(self, item):
         self.inventory.append(item)
+        print(f"you took the {item} and stashed into your inventory")
 
     def remove_the_item(self, item):
         for thing in self.inventory:
